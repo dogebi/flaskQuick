@@ -13,12 +13,12 @@ CORS(app)
 # openai.api_key = os.environ.get('AZURE_OPENAI_KEY')  # Azure OpenAI API Key
 openai.api_key = os.getenv("AZURE_OPENAI_KEY")  # 환경 변수에 저장된 API 키
 
-# openai.api_base = os.environ.get('AZURE_OPENAI_ENDPOINT')  # Azure OpenAI Endpoint
+openai.api_base = os.environ.get('AZURE_OPENAI_ENDPOINT')  # Azure OpenAI Endpoint
 AZURE_OPENAI_SERVICE = os.getenv("AZURE_OPENAI_SERVICE")
 AZURE_OPENAI_API_VERSION = os.getenv("AZURE_OPENAI_API_VERSION")
 
-openai.api_base = f"https://{AZURE_OPENAI_SERVICE}.openai.azure.com"
-openai.api_version = AZURE_OPENAI_API_VERSION
+# openai.api_base = f"https://{AZURE_OPENAI_SERVICE}.openai.azure.com"
+# openai.api_version = AZURE_OPENAI_API_VERSION
 
 # Comment these two lines out if using keys, set your API key in the AZURE_OPENAI_API_KEY environment variable instead
 openai.api_type = "azure"
@@ -44,7 +44,7 @@ def ask_gpt():
             return jsonify({"success": False, "error": "No message provided"}), 400
 
         response = openai.ChatCompletion.create(
-            engine="gpt-4o",  # 사용하려는 모델 이름
+            model="gpt-4o",  # 사용하려는 모델 이름
             messages=[{"role": "user", "content": prompt}],
             max_tokens=150
         )
