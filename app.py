@@ -17,23 +17,22 @@ openai.api_key = os.getenv("AZURE_OPENAI_KEY")  # 환경 변수에서 API 키 �
 openai.api_base = os.getenv("AZURE_OPENAI_ENDPOINT")  # Azure OpenAI Endpoint
 openai.api_version = os.getenv("AZURE_OPENAI_API_VERSION")  # API 버전
 
-# 배포된 모델 이름
-DEPLOYMENT_NAME = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME")  # Azure 포털에서 확인한 배포 이름
+# Azure 배포 모델 이름
+DEPLOYMENT_NAME = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME")  # 환경 변수에서 배포 이름 가져오기
 
 @app.route('/ask_gpt', methods=['POST'])
 def ask_gpt():
     try:
-        # 클라이언트로부터 입력받기
+        # 클라이언트 요청 데이터 가져오기
         data = request.json
         prompt = data.get("input", "")
         
-        # 입력값 확인
         if not prompt:
             return jsonify({"success": False, "error": "No input provided"}), 400
 
-        # ChatCompletion API 호출
+        # Azure OpenAI ChatCompletion 호출
         response = openai.ChatCompletion.create(
-            engine=DEPLOYMENT_NAME,  # Azure 배포 모델 이름
+            engine=DEPLOYMENT_NAME,  # Azure 배포 이름 지정
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": prompt}
@@ -42,7 +41,7 @@ def ask_gpt():
             temperature=0.7
         )
 
-        # 응답 반환
+        # 응답 처리 및 반환
         answer = response['choices'][0]['message']['content'].strip()
         return jsonify({"success": True, "answer": answer})
 
