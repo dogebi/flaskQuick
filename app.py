@@ -10,7 +10,9 @@ app = Flask(__name__)
 CORS(app)
 
 # Azure OpenAI API 키와 엔드포인트를 환경 변수에서 가져옵니다.
-openai.api_key = os.environ.get('AZURE_OPENAI_KEY')  # Azure OpenAI API Key
+# openai.api_key = os.environ.get('AZURE_OPENAI_KEY')  # Azure OpenAI API Key
+openai.api_key = os.getenv("AZURE_OPENAI_KEY")  # 환경 변수에 저장된 API 키
+
 # openai.api_base = os.environ.get('AZURE_OPENAI_ENDPOINT')  # Azure OpenAI Endpoint
 AZURE_OPENAI_SERVICE = os.environ.get("AZURE_OPENAI_SERVICE")
 AZURE_OPENAI_API_VERSION = os.environ.get("AZURE_OPENAI_API_VERSION")
@@ -42,7 +44,7 @@ def ask_gpt():
             return jsonify({"success": False, "error": "No message provided"}), 400
 
         response = openai.ChatCompletion.create(
-            model="gpt-4o",  # 사용하려는 모델 이름
+            engine="gpt-4o",  # 사용하려는 모델 이름
             messages=[{"role": "user", "content": prompt}],
             max_tokens=150
         )
