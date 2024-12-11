@@ -21,16 +21,19 @@ app.logger.info(f"Using API base: {openai.api_base}")
 @app.route('/ask_gpt', methods=['POST'])
 def ask_gpt():
     try:
-        user_input = request.json.get('message')
-        app.logger.info(f"Received message: {user_input}")  # Log the incoming message
+        data = request.json
+        prompt = data.get("input", "")
 
-        if not user_input:
+        # user_input = request.json.get('message')
+        app.logger.info(f"Received message: {prompt}")  # Log the incoming message
+
+        if not prompt:
             app.logger.error("No message provided")
             return jsonify({"success": False, "error": "No message provided"}), 400
 
         response = openai.ChatCompletion.create(
             model="gpt-4o",  # 사용하려는 모델 이름
-            messages=[{"role": "user", "content": user_input}],
+            messages=[{"role": "user", "content": prompt}],
             max_tokens=150
         )
 
