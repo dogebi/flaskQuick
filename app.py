@@ -15,6 +15,9 @@ openai.api_base = os.getenv('AZURE_OPENAI_ENDPOINT')  # Azure OpenAI Endpoint
 # os.environ['HTTP_PROXY'] = 'http://80023:nomura49@172.19.248.1:92'
 # os.environ['HTTPS_PROXY'] = 'http://80023:nomura49@172.19.248.1:92'
 
+app.logger.info(f"Using API key: {openai.api_key}")
+app.logger.info(f"Using API base: {openai.api_base}")
+
 @app.route('/ask_gpt', methods=['POST'])
 def ask_gpt():
     try:
