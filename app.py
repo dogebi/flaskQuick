@@ -20,7 +20,7 @@ def ask_gpt():
         data = request.json
         prompt = data.get("input", "")
         # debug
-        return deployment_id
+        return openai.api_base
     
         if not prompt:
             return jsonify({"success": False, "error": "No input provided"}), 400
