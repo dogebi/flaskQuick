@@ -12,7 +12,7 @@ openai.api_type = "azure"
 openai.api_key = os.getenv("AZURE_OPENAI_KEY")  # 환경 변수에서 API 키 가져오기
 openai.api_base = os.getenv("AZURE_OPENAI_ENDPOINT")  # 환경 변수에서 엔드포인트 가져오기
 openai.api_version = os.getenv("AZURE_OPENAI_API_VERSION")  # API 버전
-deployment_id = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME")  # 배포 이름 가져오기
+deployment_id = os.getenv("AZURE_OPENAI_MODEL_NAME")  # 배포 이름 가져오기
 
 @app.route('/ask_gpt', methods=['POST'])
 def ask_gpt():
@@ -25,8 +25,8 @@ def ask_gpt():
 
         # ChatCompletion 호출
         response = openai.ChatCompletion.create(
-            # deployment_id=deployment_id,  # 배포 이름 사용
-            model='gpt-4o',
+            deployment_id=deployment_id,  # 배포 이름 사용
+            # model='gpt-4o',
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": prompt}
