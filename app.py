@@ -25,7 +25,7 @@ def ask_gpt():
             return jsonify({"success": False, "error": "No input provided"}), 400
 
         # ChatCompletion 호출
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             deployment_id=deployment_id,  # 배포 이름 사용
             # model='gpt-4o',
             messages=[
