@@ -14,6 +14,7 @@ openai.api_base = os.getenv("AZURE_OPENAI_ENDPOINT")  # 환경 변수에서 엔�
 openai.api_version = os.getenv("AZURE_OPENAI_API_VERSION")  # API 버전
 deployment_id = os.getenv("AZURE_OPENAI_MODEL")  # 배포 이름 가져오기
 
+
 @app.route('/ask_gpt', methods=['POST'])
 def ask_gpt():
     try:
@@ -34,8 +35,8 @@ def ask_gpt():
             max_tokens=150,
             temperature=0.7
         )
-
-        answer = response['choices'][0]['message']['content'].strip()
+        answer = openai.api_base
+        # answer = response['choices'][0]['message']['content'].strip()
         return jsonify({"success": True, "answer": answer})
 
     except Exception as e:
