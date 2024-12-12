@@ -12,7 +12,7 @@ openai.api_type = "azure"
 openai.api_key = os.getenv("AZURE_OPENAI_KEY")  # 환경 변수에서 API 키 가져오기
 openai.api_base = os.getenv("AZURE_OPENAI_ENDPOINT")  # 환경 변수에서 엔드포인트 가져오기
 openai.api_version = os.getenv("AZURE_OPENAI_API_VERSION")  # API 버전
-deployment_id = os.getenv("AZURE_OPENAI_MODEL_NAME")  # 배포 이름 가져오기
+deployment_id = os.getenv("AZURE_OPENAI_MODEL")  # 배포 이름 가져오기
 
 @app.route('/ask_gpt', methods=['POST'])
 def ask_gpt():
