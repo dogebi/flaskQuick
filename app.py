@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 # Flask 애플리케이션 초기화
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Azure OpenAI 설정
 openai.api_type = "azure"
@@ -25,7 +25,8 @@ def ask_gpt():
 
         # ChatCompletion 호출
         response = openai.ChatCompletion.create(
-            deployment_id=deployment_id,  # 배포 이름 사용
+            # deployment_id=deployment_id,  # 배포 이름 사용
+            model='gpt-4o',
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": prompt}
