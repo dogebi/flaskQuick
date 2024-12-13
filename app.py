@@ -42,18 +42,18 @@ def ask_gpt():
             return jsonify({"success": False, "error": "No input provided"}), 400
 
         # ChatCompletion 호출
-        # response = openai.ChatCompletion.create(
-        #     deployment_id=deployment_id,  # 배포 이름 사용
-        #     # model='gpt-4o',
-        #     messages=[
-        #         {"role": "system", "content": "You are a helpful assistant."},
-        #         {"role": "user", "content": prompt}
-        #     ],
-        #     max_tokens=150,
-        #     temperature=0.7
-        # )
-        # answer = response['choices'][0]['message']['content'].strip()
-        answer = openai.api_key
+        response = openai.ChatCompletion.create(
+            deployment_id=deployment_id,  # 배포 이름 사용
+            # model='gpt-4o',
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=150,
+            temperature=0.7
+        )
+        answer = response['choices'][0]['message']['content'].strip()
+        # answer = openai.api_key
         return jsonify({"success": True, "answer": answer})
 
     except Exception as e:
