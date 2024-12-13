@@ -21,11 +21,11 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 # Azure OpenAI 설정 
 # openai.api_type = os.getenv("AZURE_TYPE") #debug local
 # openai.api_type = "azure"
-# openai.api_key = os.getenv("AZURE_OPENAI_KEY")  # 환경 변수에서 API 키 가져오기
+openai.api_key = os.getenv("AZURE_OPENAI_KEY")  # 환경 변수에서 API 키 가져오기
 
 # token method
 openai.api_type = "azure"
-openai.api_key = token.token  # Managed Identity를 통해 획득한 액세스 토큰
+token123 = token.token  # Managed Identity를 통해 획득한 액세스 토큰
 
 openai.api_base = os.getenv("AZURE_OPENAI_ENDPOINT")  # 환경 변수에서 엔드포인트 가져오기
 openai.api_version = os.getenv("AZURE_OPENAI_API_VERSION")  # API 버전
@@ -53,7 +53,7 @@ def ask_gpt():
             temperature=0.7
         )
         # answer = response['choices'][0]['message']['content'].strip()
-        answer = openai.api_key
+        answer = token123
         return jsonify({"success": True, "answer": answer})
 
     except Exception as e:
